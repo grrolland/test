@@ -4,11 +4,12 @@
 name: Maven Release
 
 on:
-  create:   
+  push:   
+    branches: 
+      - release
 
 jobs:
   release:
-    if: ${{ contains(github.ref, 'refs/heads/release') }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
