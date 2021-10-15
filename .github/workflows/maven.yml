@@ -4,10 +4,8 @@
 name: Maven Release
 
 on:
-  push:
-    branches: 
-      - release
-  
+  release:
+
 jobs:
   build:
 
