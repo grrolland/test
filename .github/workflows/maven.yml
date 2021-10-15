@@ -4,13 +4,12 @@
 name: Maven Release
 
 on:
-  release:
+  create:   
 
 jobs:
-  build:
-
+  release:
+    if: ${{ contains(github.ref, 'refs/heads/release') }}
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
