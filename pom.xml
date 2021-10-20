@@ -11,7 +11,7 @@
 
     <scm>
         <connection>scm:git:git@github.com:grrolland/test.git</connection>
-        <developerConnection>scm:git:git@github.com:grrolland/test.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/grrolland/test.git</developerConnection>
         <url>https://github.com/grrolland/test</url>
     </scm>
 
