@@ -5,8 +5,8 @@ name: Maven Release
 
 on:
   push:   
-    branches: 
-      - 'release'
+    tags: 
+      - '*'
 
 jobs:
   release:
