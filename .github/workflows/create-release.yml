@@ -10,6 +10,7 @@ env:
   ALTERNATE_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
   IMAGE_NAME: ${{ github.repository }}
   SONAR_URL: https://sonarcloud.io
+  SONAR_ORG: grrolland-github
 
 jobs:
   release:
@@ -56,7 +57,11 @@ jobs:
             sonar:sonar \
             -B -e -V \
           	-Dsonar.host.url=$SONAR_URL \
-          	-Dsonar.login=$SONAR_TOKEN
+          	-Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.organization=$SONAR_ORG \
+            -Dsonar.sources=src/main \
+            -Dsonar.junit.reportPaths=target/surefire-reports \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
