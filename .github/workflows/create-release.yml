@@ -26,11 +26,6 @@ jobs:
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"        
     - name: Perform Release
-      run: mvn --batch-mode --update-snapshots -B -Dtag=${GITHUB_REF##*release-} release:prepare
+      run: mvn --batch-mode --update-snapshots -B -Dtag=${GITHUB_REF##*release-} -Dmaven.deploy.skip=true release:prepare release:perform
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ steps.get_tag_name.outputs.VERSION }}
-    - name: Build Tag
-      run: mvn --batch-mode --update-snapshots clean install

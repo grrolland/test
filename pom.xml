@@ -3,15 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.grrolland</groupId>
-    <artifactId>simap</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <artifactId>test</artifactId>
+    <version>1.0.28-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <scm>
         <connection>scm:git:git@github.com:grrolland/test.git</connection>
         <developerConnection>scm:git:https://github.com/grrolland/test.git</developerConnection>
         <url>https://github.com/grrolland/test</url>
-    <tag>HEAD</tag>
   </scm>
 
     <properties>
@@ -19,5 +18,42 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.37.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>quay.io/grrolland/${project.artifactId}:${project.version}</name>
+                            <build>
+                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>push</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
