@@ -21,9 +21,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-        server-id: ${{ DOCKER_REGISTRY }}
-        server-username: ${{ DOCKER_REGISTRY_USERNAME }}
-        server-password: ${{ DOCKER_REGISTRY_PASSWORD }}
+        server-id: ${{ secrets.DOCKER_REGISTRY }}
+        server-username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+        server-password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
     - name: Configure Git user
       run: |
         git config user.email "actions@github.com"
