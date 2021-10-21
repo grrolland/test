@@ -9,6 +9,7 @@ env:
   REGISTRY: ghcr.io
   ALTERNATE_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
   IMAGE_NAME: ${{ github.repository }}
+  SONAR_URL: https://sonarcloud.io
 
 jobs:
   release:
@@ -47,12 +48,16 @@ jobs:
           ref: ${{ steps.get_tag_name.outputs.VERSION }}
 
       - name: Build Tag
-        run: mvn clean package
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
+        run: |
+          mvn clean \
+            org.jacoco:jacoco-maven-plugin:prepare-agent \
+            package \
+            org.jacoco:jacoco-maven-plugin:report \
+            sonar:sonar \
+            -B -e -V \
+          	-Dsonar.host.url=$SONAR_URL \
+          	-Dsonar.login=$SONAR_TOKEN
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       ##
