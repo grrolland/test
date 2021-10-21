@@ -4,14 +4,15 @@
 
     <groupId>io.github.grrolland</groupId>
     <artifactId>test</artifactId>
-    <version>1.0.40-SNAPSHOT</version>
+    <version>1.0.40</version>
     <packaging>jar</packaging>
 
     <scm>
         <connection>scm:git:git@github.com:grrolland/test.git</connection>
         <developerConnection>scm:git:https://github.com/grrolland/test.git</developerConnection>
         <url>https://github.com/grrolland/test</url>
-    </scm>
+      <tag>1.0.40</tag>
+  </scm>
 
     <distributionManagement>
         <repository>
