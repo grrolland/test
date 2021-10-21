@@ -21,9 +21,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-        server-id: ${{ secrets.DOCKER_REGISTRY }}
-        server-username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
-        server-password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+        server-id: DOCKER_REGISTRY
+        server-username: DOCKER_REGISTRY_USERNAME
+        server-password: DOCKER_REGISTRY_PASSWORD
     - name: View settings
       run: cat /home/runner/.m2/settings.xml
     - name: Configure Git user
@@ -33,4 +33,7 @@ jobs:
     - name: Perform Release
       run: mvn --batch-mode --update-snapshots -B -Dtag=${GITHUB_REF##*release-} -Darguments="-Dmaven.deploy.skip=true" release:prepare release:perform
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+        DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+        DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
