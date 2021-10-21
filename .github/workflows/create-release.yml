@@ -100,3 +100,9 @@ jobs:
           push: true
           tags: ${{ steps.meta_alt.outputs.tags }}
           labels: ${{ steps.meta_alt.outputs.labels }}
+
+      - uses: ncipollo/release-action@v1
+        with:
+          body: Release version ${{ steps.get_tag_name.outputs.VERSION }}
+          tag: ${{ steps.get_tag_name.outputs.VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
