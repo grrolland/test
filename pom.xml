@@ -11,8 +11,15 @@
         <connection>scm:git:git@github.com:grrolland/test.git</connection>
         <developerConnection>scm:git:https://github.com/grrolland/test.git</developerConnection>
         <url>https://github.com/grrolland/test</url>
-    <tag>HEAD</tag>
-  </scm>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/grrolland/test</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

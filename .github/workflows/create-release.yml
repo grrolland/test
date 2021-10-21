@@ -17,6 +17,10 @@ jobs:
       - name: Get tag name
         id: get_tag_name
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/heads\/release-/}
+
+        ##
+        # Perform Maven Release
+        #
       - uses: actions/checkout@v2
         with:
           ref: master
@@ -26,20 +30,18 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: maven
-      - name: View settings
-        run: cat /home/runner/.m2/settings.xml
       - name: Configure Git user
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-
       - name: Perform Release
-        run: mvn -B -Dtag=${GITHUB_REF##*release-} release:prepare
+        run: mvn -B -Dtag=${GITHUB_REF##*release-} release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
-          DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
 
+      ##
+      #  Checkout and Build the Tag
+      #
       - uses: actions/checkout@v2
         with:
           ref: ${{ steps.get_tag_name.outputs.VERSION }}
@@ -101,6 +103,9 @@ jobs:
           tags: ${{ steps.meta_alt.outputs.tags }}
           labels: ${{ steps.meta_alt.outputs.labels }}
 
+      ##
+      #  Create a Github Release
+      #
       - uses: ncipollo/release-action@v1
         with:
           body: Release version ${{ steps.get_tag_name.outputs.VERSION }}
