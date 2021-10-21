@@ -49,6 +49,12 @@ jobs:
       - name: Build Tag
         run: mvn clean package
 
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       ##
       #  Publish to Github Docker Registry
       #
