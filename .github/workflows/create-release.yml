@@ -24,6 +24,8 @@ jobs:
         server-id: ${{ secrets.DOCKER_REGISTRY }}
         server-username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
         server-password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+    - name: View settings
+      run: cat /home/runner/.m2/settings.xml
     - name: Configure Git user
       run: |
         git config user.email "actions@github.com"
